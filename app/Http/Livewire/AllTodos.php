@@ -9,6 +9,12 @@ class AllTodos extends Component
 {
     public $todos;
 
+    public $listeners = ['todoAdded'];
+
+    public function todoAdded(){
+        $this->todos = Todo::latest()->get();
+    }
+
     public function mount(){
         $this->todos = Todo::latest()->get();
     }

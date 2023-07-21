@@ -10,16 +10,26 @@ class AddTodos extends Component
 {
     public $item;
 
+    protected $rules = [
+        'item' => 'required',
+    ];
+
+    protected $validationAttributes = [
+        'item' => 'to-do'
+    ];
+
+    public function updated ($propertyName){
+        $this->validateOnly($propertyName);
+    }
+
     public function mount(){
         $this->item = '';
     }
     public function addTodo(){
-        Todo::create([
-            'item' => $this->item,
-            'complited' => 0,
-        ]);
+        $validatedData = $this->validate();
+        Todo::create($validatedData);
         $this->reset('item');
-
+        $this->emit('todoAdded');
     }
     public function render()
     {
