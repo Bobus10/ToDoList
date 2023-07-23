@@ -1,8 +1,8 @@
 <div>
-    <h2 class="text-x1 font-semibold mt-4 px-4">To Do List:</h2>
+    <h2 class="text-xl font-semibold mt-4 px-4">To Do List:</h2>
     <div class="flex flex-col px-4 py-4 space-x-4">
         @foreach ($todos as $index => $todo)
-            <div class="flex justify-between">
+            <div class="bg-gray-100 rounded p-2 mt-2 flex justify-between">
                 <div>
                     @if ($editedTodoIndex === $index || $editedTodoField === $index.'.item')
                         <input type="text"
