@@ -38,10 +38,14 @@ class AllTodos extends Component
     }
 
     public function saveTodo($todoIndex){
-        // $this->validate(); //dont save changes
+        $this->validate();
         $todo = $this->todos[$todoIndex] ?? NULL;
-        if(!is_Null($todo)) {
-            optional(Todo::find($todo['id']))->update($todo);
+        if ($todo) {
+            $todoId = Todo::find($todo['id']);
+            if ($todoId) {
+                $todoId->item = $todo['item'];
+                $todoId->save();
+            }
         }
         $this->editedTodoField = null;
         $this->editedTodoIndex = null;
