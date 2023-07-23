@@ -13,6 +13,18 @@ class AllTodos extends Component
 
     protected $listeners = ['todoAdded'];
 
+    protected $rules = [
+        'todos.*.item' => 'required|min:4'
+    ];
+
+    protected $validationAttributes = [
+        'todos.*.item' => 'to-do',
+    ];
+
+    public function mount(){
+        $this->todos = Todo::latest()->get()->toArray();
+    }
+
     public function todoAdded(){
         $this->todos = Todo::latest()->get();
     }
@@ -26,17 +38,15 @@ class AllTodos extends Component
     }
 
     public function saveTodo($todoIndex){
+        // $this->validate(); //dont save changes
         $todo = $this->todos[$todoIndex] ?? NULL;
-        if(!is_null($todo)){
+        if(!is_Null($todo)) {
             optional(Todo::find($todo['id']))->update($todo);
         }
         $this->editedTodoField = null;
         $this->editedTodoIndex = null;
     }
 
-    public function mount(){
-        $this->todos = Todo::latest()->get()->toArray();
-    }
     public function render()
     {
         return view('livewire.all-todos', [
