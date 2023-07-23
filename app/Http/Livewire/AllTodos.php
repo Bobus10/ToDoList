@@ -51,6 +51,18 @@ class AllTodos extends Component
         $this->editedTodoIndex = null;
     }
 
+    public function deleteTodo($todoIndex){
+        $todo = $this->todos[$todoIndex];
+        Todo::find($todo['id'])->delete();
+        $this->todos = Todo::latest()->get()->toArray();
+    }
+
+    public function completeTodo($todoIndex){
+        $todo = $this->todos[$todoIndex];
+        Todo::find($todo['id'])->update(['complited' => 1]);
+        $this->todos = Todo::latest()->get()->toArray();
+    }
+
     public function render()
     {
         return view('livewire.all-todos', [

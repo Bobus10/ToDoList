@@ -3,5 +3,4 @@
     @error('item')
         <span class="text-red-500 mt-2">{{ $message }}</span>
     @enderror
-    <br>{{ $item }}
 </div>
